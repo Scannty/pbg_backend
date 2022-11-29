@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator')
 const Product = require('../models/product')
+const { getIo } = require('../utils/socket')
 
 exports.getProducts = async (req, res, next) => {
     try {
@@ -16,6 +17,7 @@ exports.getProducts = async (req, res, next) => {
 }
 
 exports.addProduct = async (req, res, next) => {
+    console.log('add product')
     const { title, price, description, imageUrl } = req.body
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -27,6 +29,8 @@ exports.addProduct = async (req, res, next) => {
     try {
         const result = await product.save()
         console.log(result)
+        const io = getIo()
+        io.emit('productAdded', { product })
         res.status(200).json({ message: 'Product added successfully!', product })
     } catch (error) {
         next(error)
