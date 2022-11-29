@@ -4,6 +4,7 @@ const { getIo } = require('../utils/socket')
 
 exports.getProducts = async (req, res, next) => {
     try {
+        console.log('Hurray')
         const products = await Product.fetchAll()
         if (!products) {
             const error = new Error('No products found!')
