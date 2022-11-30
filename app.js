@@ -26,7 +26,7 @@ app.use('/image', express.static(__dirname + '/images'));
 
 
 app.get('/hello', (req, res, next) => res.status(200).json({ message: 'Helloo' }))
-app.get('/getProducts',)
+app.get('/getProducts', shopController.getProducts)
 
 /* app.use('/shop', shopRoutes)
 app.use('/auth', authRoutes) */
