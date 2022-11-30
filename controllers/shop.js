@@ -74,7 +74,7 @@ exports.addStock = async (req, res, next) => {
         const result = await Product.addStockById(productId, addStock)
         console.log(result)
         const io = getIo()
-        io.emit('stockAdded', { result, addStock })
+        io.emit('stockAdded', { result, addStock, productId })
         res.status(200).json({ message: 'Added stock successfully!', addStock })
     } catch (error) {
         console.log(error)
