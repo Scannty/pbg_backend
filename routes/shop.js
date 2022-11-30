@@ -31,6 +31,6 @@ router.put(
     shopController.editProduct
 )
 
-router.delete('/deleteProduct:productId', /* isAuth, */ shopController.deleteProduct)
+router.delete('/deleteProduct/:productId', /* isAuth, */ shopController.deleteProduct)
 
 module.exports = router
