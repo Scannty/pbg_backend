@@ -4,7 +4,6 @@ const cors = require('cors')
 const { initIo } = require('./utils/socket')
 const authRoutes = require('./routes/auth')
 const shopRoutes = require('./routes/shop')
-const shopController = require('./controllers/shop')
 const { connectMongo } = require('./utils/database')
 require('dotenv').config()
 
@@ -26,10 +25,8 @@ app.use('/image', express.static(__dirname + '/images'));
 
 
 app.get('/hello', (req, res, next) => res.status(200).json({ message: 'Helloo' }))
-app.get('/getProducts', shopController.getProducts)
-
-/* app.use('/shop', shopRoutes)
-app.use('/auth', authRoutes) */
+app.use('/shop', shopRoutes)
+app.use('/auth', authRoutes)
 
 app.use((error, req, res, next) => {
     console.log('Marko je kriv')
