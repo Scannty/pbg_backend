@@ -2,6 +2,7 @@ const express = require('express')
 const bodyparser = require('body-parser')
 const cors = require('cors')
 const { initIo } = require('./utils/socket')
+const authRoutes = require('./routes/auth')
 const shopRoutes = require('./routes/shop')
 const { connectMongo } = require('./utils/database')
 
@@ -14,13 +15,17 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use(cors())
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
+app.use('/image', express.static(__dirname + '/images'));
 
 app.use('/shop', shopRoutes)
+app.use('/auth', authRoutes)
 
 app.use((error, req, res, next) => {
     console.log('Marko je kriv')
+    console.log(error)
     const { statusCode, message, data } = error
     res.status(statusCode || 500).json({ message, data })
 })

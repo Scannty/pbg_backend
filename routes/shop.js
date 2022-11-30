@@ -1,5 +1,7 @@
 const express = require('express')
 const { body } = require('express-validator')
+const isAuth = require('../middleware/isAuth')
+const uploadImage = require('../utils/multer')
 const shopController = require('../controllers/shop')
 
 const router = express.Router()
@@ -8,6 +10,8 @@ router.get('/getProducts', shopController.getProducts)
 
 router.post(
     '/addProduct',
+    uploadImage.single('image'),
+    /* isAuth */
     [
         body('title', 'Invalid title, must be at least 3 characters long').isString().isLength({ min: 3 }).trim(),
         body('price', 'Invalid price').isFloat(),
@@ -18,6 +22,7 @@ router.post(
 
 router.put(
     '/editProduct:productId',
+    /* isAuth */
     [
         body('title', 'Invalid title, must be at least 3 characters long').isString().isLength({ min: 3 }).trim(),
         body('price', 'Invalid price').isFloat(),
@@ -26,6 +31,6 @@ router.put(
     shopController.editProduct
 )
 
-router.post('/deleteProduct:productId', shopController.deleteProduct)
+router.post('/deleteProduct:productId', /* isAuth, */ shopController.deleteProduct)
 
 module.exports = router

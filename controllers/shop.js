@@ -18,8 +18,10 @@ exports.getProducts = async (req, res, next) => {
 }
 
 exports.addProduct = async (req, res, next) => {
-    console.log('add product')
-    const { title, price, description, imageUrl } = req.body
+    console.log('file: ', req.file)
+    const image = req.file
+    const imageUrl = image.path
+    const { title, price, description } = req.body
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         const error = new Error(errors.array()[0].msg)
@@ -40,8 +42,8 @@ exports.addProduct = async (req, res, next) => {
 
 exports.editProduct = async (req, res, next) => {
     const { productId } = req.params
-    const { title, price, description, imageUrl } = req.body
-    const product = new Product(title, price, description, imageUrl)
+    const { title, price, description } = req.body
+    const product = new Product(title, price, description)
     try {
         const result = await product.save(productId)
         console.log(result)

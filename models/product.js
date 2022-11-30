@@ -6,6 +6,7 @@ class Product {
         this.price = price
         this.description = description
         this.imageUrl = imageUrl
+        this.stock = 0
     }
 
     save(productId) {
