@@ -5,8 +5,11 @@ const { initIo } = require('./utils/socket')
 const authRoutes = require('./routes/auth')
 const shopRoutes = require('./routes/shop')
 const { connectMongo } = require('./utils/database')
+require('dotenv').config()
 
 const app = express()
+
+const PORT = process.env.PORT() || 8000
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
@@ -31,7 +34,7 @@ app.use((error, req, res, next) => {
 })
 
 connectMongo(() => {
-    const server = app.listen(8000, () => console.log('Server started...'))
+    const server = app.listen(PORT, () => console.log('Server started, running on port ' + PORT))
     const io = initIo(server)
     io.on('connection', socket => {
         console.log('Client connected to socket...')
