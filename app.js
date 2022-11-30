@@ -23,6 +23,8 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json())
 app.use('/image', express.static(__dirname + '/images'));
 
+
+app.get('/hello', (req, res, next) => res.status(200).json({ message: 'Helloo' }))
 app.use('/shop', shopRoutes)
 app.use('/auth', authRoutes)
 
