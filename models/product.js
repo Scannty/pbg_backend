@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb')
 const { getDb } = require('../utils/database')
 
 class Product {
@@ -28,7 +29,7 @@ class Product {
         const db = getDb()
         return db
             .collection('products')
-            .deleteOne({ _id: new mongodb.ObjectId(productId) })
+            .deleteOne({ _id: new ObjectId(productId) })
     }
 }
 
