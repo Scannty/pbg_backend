@@ -65,3 +65,18 @@ exports.deleteProduct = async (req, res, next) => {
         console.log(error)
     }
 }
+
+exports.addStock = async (req, res, next) => {
+    const { productId } = req.params
+    const { addStock } = req.query
+    console.log(addStock)
+    try {
+        const result = await Product.addStockById(productId, addStock)
+        console.log(result)
+        const io = getIo()
+        io.emit('stockAdded', { result, addStock })
+        res.status(200).json({ message: 'Added stock successfully!', addStock })
+    } catch (error) {
+        console.log(error)
+    }
+}

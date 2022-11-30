@@ -31,6 +31,8 @@ router.put(
     shopController.editProduct
 )
 
+router.put('/addStock/:productId', shopController.addStock)
+
 router.delete('/deleteProduct/:productId', /* isAuth, */ shopController.deleteProduct)
 
 module.exports = router
