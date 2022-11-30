@@ -58,6 +58,8 @@ exports.deleteProduct = async (req, res, next) => {
     try {
         const result = await Product.deleteById(productId)
         console.log(result)
+        const io = getIo()
+        io.emit('productDeleted', { result })
         res.status(200).json({ message: 'Product deleted successfully!' })
     } catch (error) {
         console.log(error)
